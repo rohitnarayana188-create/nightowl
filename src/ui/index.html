@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src * data: blob: crx:; style-src 'self' 'unsafe-inline'">
+  <title>Nightowl</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="tabbar">
+    <div id="tabs"></div>
+    <button id="newtab" class="icon" title="New tab (⌘T)">+</button>
+  </div>
+
+  <div id="toolbar">
+    <button id="back" class="icon" title="Back (⌘[)">
+      <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button id="forward" class="icon" title="Forward (⌘])">
+      <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+    <button id="reload" class="icon" title="Reload (⌘R)">
+      <svg viewBox="0 0 24 24" id="reload-icon"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg>
+      <svg viewBox="0 0 24 24" id="stop-icon" hidden><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div id="urlwrap">
+      <span id="mode" title="">Private</span>
+      <input id="url" spellcheck="false" autocomplete="off" placeholder="Search or enter address">
+      <button id="star" title="Bookmark this page (⌘D)" hidden>☆</button>
+      <div id="suggest" hidden></div>
+    </div>
+    <browser-action-list id="extactions" partition="persist:main" alignment="bottom right"></browser-action-list>
+    <button id="extbtn" class="icon" title="Extensions (⇧⌘E)">🧩</button>
+    <button id="shield" class="icon" title="Trackers blocked on this page">
+      <svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg>
+      <span id="blockcount">0</span></button>
+    <button id="menu" class="icon" title="Settings (⌘,)">
+      <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+  <div id="bookmarksbar" hidden></div>
+  <div id="progress"></div>
+
+  <div id="findbar" hidden>
+    <input id="findinput" placeholder="Find in page" spellcheck="false">
+    <span id="findcount"></span>
+    <button id="findprev" class="icon" title="Previous">↑</button>
+    <button id="findnext" class="icon" title="Next">↓</button>
+    <button id="findclose" class="icon" title="Close (Esc)">✕</button>
+  </div>
+
+  <div id="views"></div>
+
+  <aside id="settings" hidden>
+    <header><h2>Settings</h2><button id="settings-close" class="icon">✕</button></header>
+
+    <section>
+      <div class="buttons"><button id="make-default" class="primary">Make Nightowl my default browser</button></div>
+    </section>
+
+    <section>
+      <h3>Library</h3>
+      <div class="buttons">
+        <button id="open-bookmarks">★ Bookmarks <kbd>⌥⌘B</kbd></button>
+        <button id="open-history">🕘 History <kbd>⌘Y</kbd></button>
+        <button id="open-downloads-page">⬇ Downloads <kbd>⇧⌘J</kbd></button>
+        <button id="open-extensions">🧩 Extensions <kbd>⇧⌘E</kbd></button>
+      </div>
+      <label class="row"><input type="checkbox" id="set-bar"> Show bookmarks bar <small>⇧⌘B</small></label>
+    </section>
+
+    <section>
+      <h3>Search</h3>
+      <select id="set-search">
+        <option value="https://duckduckgo.com/?q=%s">DuckDuckGo</option>
+        <option value="https://search.brave.com/search?q=%s">Brave Search</option>
+        <option value="https://www.startpage.com/do/search?q=%s">Startpage</option>
+        <option value="https://www.google.com/search?q=%s">Google</option>
+        <option value="https://www.bing.com/search?q=%s">Bing</option>
+      </select>
+    </section>
+
+    <section>
+      <h3>Privacy</h3>
+      <label class="row"><input type="checkbox" id="set-private"> New tabs are private
+        <small>Private tabs keep nothing after you quit. Normal tabs remember logins.</small></label>
+      <label class="row"><input type="checkbox" id="set-block"> Block trackers &amp; ads</label>
+      <label class="row"><input type="checkbox" id="set-https"> Upgrade pages to HTTPS</label>
+      <label class="row"><input type="checkbox" id="set-perms"> Ask before camera, mic, location
+        <small>Off = always block them.</small></label>
+      <label class="row"><input type="checkbox" id="set-history"> Save history for normal tabs
+        <small>Private tabs are never recorded. Stored only on this Mac.</small></label>
+      <label class="row"><input type="checkbox" id="set-restore"> Reopen my tabs when Nightowl starts
+        <small>Normal tabs only. Private tabs are never saved.</small></label>
+    </section>
+
+    <section>
+      <h3>Encrypted DNS</h3>
+      <p class="hint" style="margin-top:0">Hides which websites you visit from your Wi-Fi and internet provider.</p>
+      <select id="set-dns">
+        <option value="automatic">On (falls back if a network blocks it)</option>
+        <option value="secure">Strict (encrypted only, never falls back)</option>
+        <option value="off">Off</option>
+      </select>
+      <select id="set-dns-provider" style="margin-top:8px">
+        <option value="quad9">Quad9 (non-profit, blocks malware)</option>
+        <option value="cloudflare">Cloudflare</option>
+        <option value="mullvad">Mullvad (no logging)</option>
+      </select>
+    </section>
+
+    <section>
+      <h3>Clear data</h3>
+      <div class="buttons">
+        <button id="clear-private">Clear private data now</button>
+        <button id="clear-all" class="danger">Clear ALL saved data</button>
+      </div>
+    </section>
+
+    <section>
+      <h3>Control</h3>
+      <label class="row"><input type="checkbox" id="set-scripts"> Run my user scripts</label>
+      <div class="buttons">
+        <button id="open-scripts">Open user scripts folder</button>
+        <button id="open-blocklist">Edit blocklist</button>
+        <button id="open-data">Open profile folder</button>
+      </div>
+      <p class="hint">The browser's own code lives in the <code>src</code> folder. Change anything, then restart Nightowl.</p>
+    </section>
+  </aside>
+
+  <div id="toast"></div>
+  <script src="renderer.js"></script>
+</body>
+</html>

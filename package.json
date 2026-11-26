@@ -1,0 +1,19 @@
+{
+  "name": "nightowl",
+  "productName": "Nightowl",
+  "version": "1.2.0",
+  "description": "A private, fully hackable Chromium browser that you control.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "@electron/packager": "^20.3.0",
+    "electron": "^45.5.0"
+  },
+  "dependencies": {
+    "electron-chrome-extensions": "^4.10.0",
+    "electron-chrome-web-store": "^0.13.0"
+  },
+  "license": "MIT"
+}

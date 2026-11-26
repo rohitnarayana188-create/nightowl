@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'">
+  <title>New Tab</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: #15151b; color: #e8e8ef;
+      font: 15px -apple-system, BlinkMacSystemFont, sans-serif; }
+    body { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; }
+    #clock { font-size: 64px; font-weight: 200; letter-spacing: -1px; }
+    form { width: min(600px, 86vw); }
+    input { width: 100%; padding: 15px 22px; font-size: 16px; border-radius: 28px; outline: none;
+      background: #1d1d25; color: #e8e8ef; border: 1px solid #2e2e3a; box-sizing: border-box; }
+    input:focus { border-color: #8b5cf6; box-shadow: 0 0 0 3px rgba(139,92,246,.25); }
+    #note { color: #9a9aab; font-size: 13px; text-align: center; max-width: 480px; line-height: 1.5; }
+    #note b { color: #a78bfa; }
+  </style>
+</head>
+<body>
+  <div id="clock"></div>
+  <form id="f"><input id="q" placeholder="Search privately" autofocus spellcheck="false"></form>
+  <div id="note"></div>
+  <script src="newtab.js"></script>
+</body>
+</html>

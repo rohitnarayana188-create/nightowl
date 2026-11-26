@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src * data:; style-src 'self' 'unsafe-inline'">
+  <title>Library</title>
+  <link rel="stylesheet" href="library.css">
+</head>
+<body>
+  <nav>
+    <div class="brand">🦉 Nightowl</div>
+    <a href="#bookmarks" data-view="bookmarks">★ Bookmarks</a>
+    <a href="#history" data-view="history">🕘 History</a>
+    <a href="#downloads" data-view="downloads">⬇ Downloads</a>
+    <a href="#extensions" data-view="extensions">🧩 Extensions</a>
+    <p class="note">Everything here is stored only on this Mac.<br>Private tabs never appear in History.</p>
+  </nav>
+  <main>
+    <header>
+      <h1 id="heading">Bookmarks</h1>
+      <input id="search" type="search" placeholder="Search" spellcheck="false">
+      <button id="action" class="danger" hidden></button>
+    </header>
+    <div id="exttools" hidden>
+      <button id="ext-store" class="primary">Get extensions from Chrome Web Store</button>
+      <button id="ext-folder">Load from folder…</button>
+      <button id="ext-update">Check for updates</button>
+      <span id="ext-msg"></span>
+      <p class="hint">Extensions run in <b>normal tabs only</b>. Private tabs never run extensions, like Chrome Incognito.
+        Nothing installs or updates without your OK. Review the permissions each extension asks for.</p>
+    </div>
+    <div id="list"></div>
+    <p id="empty" hidden></p>
+  </main>
+  <script src="library.js"></script>
+</body>
+</html>
